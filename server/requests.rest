@@ -1,0 +1,18 @@
+POST http://localhost:3000/signin 
+Content-Type: application/json
+
+{
+    "email": "sky@yahoo.com",
+    "password": "Shubham1"
+}
+
+
+
+# POST http://localhost:3000/signup
+# Content-Type: application/json
+
+# {
+#     "fullname": "Shubham Yadav",
+#     "email": "sky@yahoo.com",
+#     "password": "Shubham1"
+# }

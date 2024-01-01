@@ -2,9 +2,11 @@ frontend/.env
 frontend/node_modules/
 frontend/src/imgs/
 frontend/src/common/firebase.jsx
+frontend/src/common/aws.jsx
 
 
 
 server/.env
 server/node_modules/
+server/requests.rest
 server/reactjs-blogging-website-sky-firebase-adminsdk-vqly2-2b1333c6cd.json

@@ -28,16 +28,24 @@
 # }
 
 
-POST http://localhost:3000/create-blog 
+# POST http://localhost:3000/create-blog 
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OGYzNjc1NTRhMDk2OGFhNTA0NDM0NyIsImlhdCI6MTcwNDEwNjc4MH0.Pwjd1nWrLxWWw3rpp9M4grhld6RFMar05CTTOiLqeWI
+
+# {
+#   "title": "Sample Blog Title",
+#   "banner": "https://sampleblog.com/banner.jpg",
+#   "content": {
+#     "blocks": [1, 2, 3]
+#   },
+#   "tags": ["sample", "blog", "dummy"],
+#   "des": "This is a sample blog description within the character limit."
+# }
+
+
+POST http://localhost:3000/search-blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OGYzNjc1NTRhMDk2OGFhNTA0NDM0NyIsImlhdCI6MTcwNDEwNjc4MH0.Pwjd1nWrLxWWw3rpp9M4grhld6RFMar05CTTOiLqeWI
 
 {
-  "title": "Sample Blog Title",
-  "banner": "https://sampleblog.com/banner.jpg",
-  "content": {
-    "blocks": [1, 2, 3]
-  },
-  "tags": ["sample", "blog", "dummy"],
-  "des": "This is a sample blog description within the character limit."
+  "tag": "programming"
 }

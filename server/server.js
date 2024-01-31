@@ -270,8 +270,15 @@ server.get("/trending-blogs", (req, res) => {
 
 // SEARCH BLOGS
 server.post("/search-blogs", (req, res) => {
-  let { tag, page } = req.body;
-  let findQuery = { tags: tag, draft: false };
+  let { tag, query, author, page } = req.body;
+  let findQuery;
+  if (tag) {
+    findQuery = { tags: tag, draft: false };
+  } else if (query) {
+    findQuery = { draft: false, title: new RegExp(query, 'i') };
+  } else if (author) {
+    findQuery = { author, draft: false };
+  }
   let maxLimit = 5;
   Blog.find(findQuery)
     .populate("author", "personal_info.profile_img personal_info.username personal_info.fullname -_id")
@@ -288,14 +295,50 @@ server.post("/search-blogs", (req, res) => {
 });
 
 server.post("/search-blogs-count", (req, res) => {
-  let { tag } = req.body;
-  let findQuery = { tags: tag, draft: false }
+  let { tag, query, author } = req.body;
+  let findQuery;
+  if (tag) {
+    findQuery = { tags: tag, draft: false };
+  } else if (query) {
+    findQuery = { draft: false, title: new RegExp(query, 'i') };
+  } else if (author) {
+    findQuery = { author, draft: false };
+  }
   Blog.countDocuments(findQuery)
     .then(count => {
       return res.status(200).json({ totalDocs: count })
     })
     .catch(err => {
       return res.send(500).json({ err: err.message })
+    })
+})
+
+
+// search user
+server.post("/search-users", (req, res) => {
+  let { query } = req.body;
+  User.find({ "personal_info.username": new RegExp(query, 'i') })
+    .limit(50)
+    .select("personal_info.fullname personal_info.username personal_info.profile_img -_id")
+    .then(users => {
+      return res.status(200).json({ users });
+    })
+    .catch(err => {
+      return res.status(500).json({ error: err.message });
+    });
+});
+
+// get user profile
+server.post("/get-profile", (req, res) => {
+  let { username } = req.body;
+  User.findOne({ "personal_info.username": username })
+    .select("-personal_info.password -google_auth -updateAt -blogs")
+    .then(user => {
+      return res.status(200).json(user)
+    })
+    .catch(err => {
+      console.log(err)
+      return res.status(500).json({ error: err.message })
     })
 })
 

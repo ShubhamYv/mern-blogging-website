@@ -43,9 +43,25 @@
 # }
 
 
-POST http://localhost:3000/search-blogs
+# POST http://localhost:3000/search-blogs
+# Content-Type: application/json
+
+# {
+#   "tag": "programming"
+# }
+
+
+# POST http://localhost:3000/search-users
+# Content-Type: application/json
+
+# {
+#   "query": "shub"
+# }
+
+
+POST http://localhost:3000/get-profile
 Content-Type: application/json
 
 {
-  "tag": "programming"
+  "username": "sample"
 }
